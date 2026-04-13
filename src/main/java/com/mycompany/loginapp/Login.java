@@ -4,8 +4,6 @@
  */
 package com.mycompany.loginapp;
 
-
-
 public class Login {
     private String username;
     private String password;
@@ -42,10 +40,10 @@ public class Login {
     }
     public String registerUser(String username, String password ,String cellPhone,String firstName, String lastName){
        if (!checkUserName(username)){
-            return "Username is not correctly formatted.";
+            return "Username is not correctly formatted;please ensure that your username contains an underscore and is no more than five characters in length.";
         }
         if (! checkPasswordComplexity(password)){
-            return"Password is not correctly formatted.";
+            return"Password is not correctly formatted; please ensure that the password contains at least eight characters,a capital letter,a number,and a special characther.";
         }
         if (! checkCellPhoneNumber(cellPhone)){
             return"Cell number is incorrectly formatted or does not contain international code ; please correct the number and try again";
@@ -55,7 +53,7 @@ public class Login {
         this.firstName = firstName;
         this.lastName = lastName;
         
-        return "User registered successfully.";
+        return "Cell number successfully captured.";
     }
     
     public boolean loginUser(String username, String password){

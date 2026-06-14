@@ -3,20 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.loginapp;
-import com.google.gson.Gson;
-import com,google.gson.Gson.GsonBuilder;
-import java.io.FileWriter;
-import java.utril.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class LoginApp {
     static ArrayList<Message> sentMessages = new ArrayList<>();
     static ArrayList<Message> storedMessages = new ArrayList<>();
+    static ArrayList<Message> disregardedMessages = new ArrayList<>();
+    
+static ArrayList<String> messageHashes = new ArrayList<>();
+static ArrayList<String> messageIDs = new ArrayList<>();
+    
 
     public static void main(String[] args) {
+        
         try (Scanner input = new Scanner(System.in)) {
             Login user = new Login ();
+            Scanner sc = new Scanner(System.in);
+           
+            
             
             System.out.print("Enter first name:");
             String firstName = input.nextLine();
@@ -46,12 +51,13 @@ public class LoginApp {
             String message = user.returnLoginStatus(success);
             
             System.out.println(message);
-        try (Scanner sc = new Scanner(System.in)) {
+        
             int messageCount = 0;
             
             System.out.println("Welcome to QuickChat.");
             System.out.print("How many messages do you want to send? ");
-            int numMessages = sc.nextInt();
+            int numMessages;
+                numMessages = sc.nextInt();
             sc.nextLine();
             
             while (true) {
@@ -59,7 +65,9 @@ public class LoginApp {
                 System.out.println("1. Send Message");
                 System.out.println("2. Show recently sent messages");
                 System.out.println("3. Quit");
-                System.out.print("Enter choice: ");
+                System.out.print("4. Stored Messages");
+                System.out.print("Enter choice:");
+                
                 int choice = sc.nextInt();
                 sc.nextLine();
                 
@@ -81,6 +89,8 @@ public class LoginApp {
                     }
                     
                     Message msg = new Message(messageCount, recipient, messageText);
+                    String cellCheck = msg.checkRecipientCell();
+                    System.out.println(cellCheck);
                     
                     // Validate recipient
                     System.out.println(msg.checkRecipientCell());
@@ -96,34 +106,57 @@ public class LoginApp {
                     String results = msg.sentMessage(option);
                     System.out.println(results);
                     
-                    if (option == 1) {
-                        sentMessages.add(msg);
-                        System.out.println("\nMessage Details:");
-                        System.out.println("Message ID: " + msg.getMessageID());
-                        System.out.println("Message Hash: " + msg.getMessageHash());
-                        System.out.println("Recipient: " + msg.getRecipient());
-                        System.out.println("Message: " + msg.getMessageText());
-                    } else if (option == 3) {
-                        storedMessages.add(msg);
-                    }
+             messageHashes.add(msg.getMessageHash());
+messageIDs.add(msg.getMessageID());       
                     
-                } else if (choice == 2) {
-                    for (Message m : sentMessages) {
-                        System.out.println("ID: " + m.getMessageID() + ", Hash: " + m.getMessageHash() +
-                                ", Recipient: " + m.getRecipient() + ", Message: " + m.getMessageText());
-                    }
-                } else if (choice == 3) {
-                    System.out.println("Total messages sent: " + sentMessages.size());
-                    System.out.println("Goodbye!");
-                    break;
-                } else {
-                    System.out.println("Coming Soon.");
+                    switch (option) {
+                        case 1:
+                            sentMessages.add(msg);
+                            System.out.println("\nMessage Details:");
+                            System.out.println("Message ID: " + msg.getMessageID());
+                            System.out.println("Message Hash: " + msg.getMessageHash());
+                            System.out.println("Recipient: " + msg.getRecipient());
+                            System.out.println("Message: " + msg.getMessageText());
+                            break;
+                        case 2:
+                            disregardedMessages.add(msg);
+                            break;
+                        case 3:
+                            storedMessages.add(msg);
+                            break;
+                        default:
+                            break;
+   } 
+                    
+  }else if (choice == 2){
+ for (Message m : sentMessages) {
+  System.out.println(m.getMessageText());
+    }
+}
+else if (choice == 3) {
+System.out.println("Goodbye!");
+    break;
+}
+else if (choice == 4) {
+
+System.out.println("\nStored Messages Menu");
+System.out.println("Sent Messages: " + sentMessages.size());
+System.out.println("Stored Messages: " + storedMessages.size());
+System.out.println("Disregarded Messages: " + disregardedMessages.size());
+
+}
                 }
             }
         }
+    }
+
+            
+        
     
-        }}
-}
+     
+
+     
+
      
      
 

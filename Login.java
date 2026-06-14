@@ -18,7 +18,7 @@ public class Login {
          boolean hasNumber = false;
           boolean hasSpecial = false;
           
-          if (password.length() >=8) {
+          if (password.length() >=10) {
               for (int i = 0; i < password.length(); i++){
               }
           }
@@ -33,7 +33,7 @@ public class Login {
     if (!Character.isLetterOrDigit (c))
          hasSpecial = true;
     }
-              return password.length() >= 8 && hasUpper && hasNumber && hasSpecial;
+              return password.length() >= 10 && hasUpper && hasNumber && hasSpecial;
     }
     public boolean checkCellPhoneNumber(String number){
         return number.matches("^\\+27\\d{9}$");

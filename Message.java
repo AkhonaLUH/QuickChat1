@@ -55,7 +55,7 @@ public boolean checkMessageID() {
             case 1:
                 return "Message successfully sent.";
             case 2:
-                return "Press 0 to delete the message.";
+                return "Message disregarded.";
             case 3:
                 return "Message successfully stored.";
             default:
